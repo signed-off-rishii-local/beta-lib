@@ -1,0 +1,13 @@
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      tag: { required: true, type: string }
+permissions: { contents: write }
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh release create "${{ inputs.tag }}" --target main --title "${{ inputs.tag }}" --notes "placeholder"
+        env: { GH_TOKEN: "${{ github.token }}" }
